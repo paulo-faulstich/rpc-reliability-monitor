@@ -11,8 +11,9 @@ and recommends a primary provider with ranked fallbacks.
 ## Two parts
 
 - **[`prototype/`](prototype)** — the runnable project. A CLI and a live dashboard that read a
-  Chainlink BTC/USD feed on Ethereum Sepolia through multiple RPC providers using raw JSON-RPC,
-  comparing latency, block height, answer, and feed freshness.
+  Chainlink BTC/USD feed on Ethereum Sepolia through multiple RPC providers — such as Alchemy,
+  Infura, and a public node — using raw JSON-RPC, comparing latency, block height, answer, and
+  feed freshness. Any endpoint can be configured; the tool is provider-agnostic.
 - **[`pm-operating-model/`](pm-operating-model)** — the product-management artifact chain behind
   it: problem frame, hypotheses, PRD, epics, metrics, roadmap, and tech spec.
 
