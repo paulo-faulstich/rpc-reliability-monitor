@@ -10,10 +10,10 @@ and recommends a primary provider with ranked fallbacks.
 
 ## Demo
 
-[![RPC Reliability Monitor — live dashboard demo](assets/demo-poster.png)](assets/demo.mp4)
+https://github.com/user-attachments/assets/4a758aae-5d1b-46b2-aefe-7a33a773853f
 
-▶ **[Watch the demo](assets/demo.mp4)** — the live dashboard querying multiple RPC providers,
-comparing latency and freshness, and recommending a primary with fallbacks.
+The live dashboard querying multiple RPC providers, comparing latency and freshness, and
+recommending a primary with fallbacks.
 
 ## Two parts
 
