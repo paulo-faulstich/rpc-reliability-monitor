@@ -10,15 +10,10 @@ and recommends a primary provider with ranked fallbacks.
 
 ## Demo
 
-<!--
-  To embed the dashboard demo video:
-  1. Open this README on github.com and click the pencil (Edit) icon.
-  2. Drag your screen recording (.mp4 / .mov / .webm, up to 100 MB) onto the line below.
-     GitHub uploads it and inserts a player URL automatically.
-  3. Commit the change. The video then renders inline here.
--->
+[![RPC Reliability Monitor — live dashboard demo](assets/demo-poster.png)](assets/demo.mp4)
 
-_Demo video of the live dashboard — coming soon._
+▶ **[Watch the demo](assets/demo.mp4)** — the live dashboard querying multiple RPC providers,
+comparing latency and freshness, and recommending a primary with fallbacks.
 
 ## Two parts
 
