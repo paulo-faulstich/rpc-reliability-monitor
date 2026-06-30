@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chainlink RPC Reliability Monitor</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="topbar">
+        <p class="eyebrow">NodeOps prototype</p>
+        <h1>Live RPC provider monitor</h1>
+        <p class="topbar-sub">
+          Reads one Chainlink Data Feed through multiple RPC providers and compares
+          latency, consistency, freshness, and failover readiness.
+        </p>
+      </header>
+
+      <section class="framing" aria-label="Context">
+        <div class="frame">
+          <span class="label">Problem frame</span>
+          <strong>RPC degradation shows stale or inconsistent data</strong>
+          <p>When a provider lags or fails, products can read old or wrong data. So we treat each one as a dependency worth measuring.</p>
+        </div>
+        <div class="frame">
+          <span class="label">Operational risk</span>
+          <strong>Outages and lag hit users before a full failure</strong>
+          <p>A slow or failing provider blocks reads, writes, and confirmations. Stale feeds quietly push decisions onto old data.</p>
+        </div>
+        <div class="frame">
+          <span class="label">Reliability signals</span>
+          <strong>Compare, score, and recommend a primary</strong>
+          <p>It checks latency, block height, answer consistency, and freshness, then picks a primary and ranks the fallbacks.</p>
+        </div>
+      </section>
+
+      <section class="status-grid" aria-label="Summary">
+        <article class="metric-card primary-metric">
+          <span class="label">Recommended primary</span>
+          <strong id="primary">Not started</strong>
+        </article>
+        <article class="metric-card">
+          <span class="label">Healthy providers</span>
+          <strong id="healthy">-</strong>
+        </article>
+        <article class="metric-card">
+          <span class="label">Answer consistency</span>
+          <strong id="answerConsistency">-</strong>
+        </article>
+        <article class="metric-card">
+          <span class="label">Block consistency</span>
+          <strong id="blockConsistency">-</strong>
+        </article>
+      </section>
+
+      <section class="dashboard-grid">
+        <div class="panel live-panel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow live-eyebrow"><span class="live-dot"></span> Live check</p>
+              <h2 id="feedTitle">Chainlink Data Feed</h2>
+              <p id="feedDetails" class="muted">Click Start Fetch to query configured RPC providers.</p>
+            </div>
+            <div class="actions">
+              <button id="startFetch" type="button">Start Fetch</button>
+              <button id="stopFetch" class="secondary" type="button" disabled>Stop Fetch</button>
+              <div class="refresh-meta">
+                <span id="nextRefresh">Auto-refresh paused</span>
+                <div class="progress"><span id="progressBar"></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="emptyState" class="notice">
+            Fetching is stopped. Start the monitor to run live RPC checks every 10 seconds.
+          </div>
+          <div id="loading" class="notice" hidden>Checking providers...</div>
+          <div id="error" class="notice error" hidden></div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Provider</th>
+                  <th>Status</th>
+                  <th>Latency</th>
+                  <th>Block</th>
+                  <th>Answer</th>
+                  <th>Feed age</th>
+                  <th>Stale?</th>
+                </tr>
+              </thead>
+              <tbody id="results"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="panel history-panel">
+          <p class="eyebrow">Recent checks</p>
+          <h2>Live activity log</h2>
+          <div id="history" class="history"></div>
+        </aside>
+      </section>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>
