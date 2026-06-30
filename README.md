@@ -8,6 +8,18 @@ When a provider degrades, Web3 products can read stale or inconsistent data long
 looks like a full outage. This project measures providers side by side, scores their health,
 and recommends a primary provider with ranked fallbacks.
 
+## Demo
+
+<!--
+  To embed the dashboard demo video:
+  1. Open this README on github.com and click the pencil (Edit) icon.
+  2. Drag your screen recording (.mp4 / .mov / .webm, up to 100 MB) onto the line below.
+     GitHub uploads it and inserts a player URL automatically.
+  3. Commit the change. The video then renders inline here.
+-->
+
+_Demo video of the live dashboard — coming soon._
+
 ## Two parts
 
 - **[`prototype/`](prototype)** — the runnable project. A CLI and a live dashboard that read a
@@ -42,3 +54,7 @@ stays visible.
 
 See [`prototype/README.md`](prototype/README.md) for full details and
 [`pm-operating-model/`](pm-operating-model) for the product thinking.
+
+---
+
+Built by [Paulo Faulstich](https://github.com/paulo-faulstich) · 2026 · [MIT License](LICENSE)

@@ -14,7 +14,7 @@ This is intentionally lightweight. It uses raw JSON-RPC calls instead of a Web3 
 
 ## What it does
 
-The prototype calls the same Chainlink Data Feed contract through multiple RPC providers and compares:
+The prototype calls the same Chainlink Data Feed contract through multiple RPC providers — such as Alchemy, Infura, QuickNode, and public endpoints — and compares:
 
 - provider availability;
 - request latency;

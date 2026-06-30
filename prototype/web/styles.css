@@ -388,6 +388,34 @@ ul {
   font-weight: 850;
 }
 
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.site-footer a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.site-footer a:hover {
+  color: var(--text);
+  border-bottom-color: var(--cyan);
+}
+
+.site-footer .dot {
+  opacity: 0.45;
+}
+
 @keyframes pulse {
   0% {
     box-shadow: 0 0 0 0 rgba(51, 214, 159, 0.6);
