@@ -12,6 +12,12 @@ This is intentionally lightweight. It uses raw JSON-RPC calls instead of a Web3 
 
 > The product thinking behind this prototype — problem frame, PRD, metrics, roadmap, and tech spec — lives in [`../pm-operating-model`](../pm-operating-model). This prototype is its executable spec.
 
+## Demo
+
+https://github.com/user-attachments/assets/0fbba130-6965-4788-8958-bea28306e2d1
+
+The live dashboard querying multiple RPC providers, comparing latency and freshness, and recommending a primary with fallbacks.
+
 ## What it does
 
 The prototype calls the same Chainlink Data Feed contract through multiple RPC providers — such as Alchemy, Infura, QuickNode, and public endpoints — and compares:
