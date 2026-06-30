@@ -10,7 +10,7 @@ and recommends a primary provider with ranked fallbacks.
 
 ## Demo
 
-https://github.com/user-attachments/assets/4a758aae-5d1b-46b2-aefe-7a33a773853f
+https://github.com/user-attachments/assets/0fbba130-6965-4788-8958-bea28306e2d1
 
 The live dashboard querying multiple RPC providers, comparing latency and freshness, and
 recommending a primary with fallbacks.
