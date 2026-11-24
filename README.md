@@ -43,25 +43,30 @@ instead of hidden behind an SDK.
 
 ## What it showed
 
-Observed on 30 June 2026 with Alchemy, Infura and a public node, reading BTC/USD on Sepolia.
-These are the cycles captured in the demo recording and in
-[`prototype/docs/sample-output.md`](prototype/docs/sample-output.md):
+Measured on 24 November 2026: 30 cycles, 10 seconds apart, reading BTC/USD on Sepolia through
+Alchemy, Infura and a public node from a single location. Full report in
+[`prototype/docs/benchmark-results.md`](prototype/docs/benchmark-results.md).
 
-| Cycle | Alchemy | Infura | Public node | Block agreement | Answer agreement |
-|---|---|---|---|---|---|
-| 1 | 256ms | not configured | 250ms | yes | yes |
-| 2 | 248ms | 251ms | 226ms | yes | yes |
-| 3 | 191ms | 159ms | 124ms | yes | yes |
+| Provider | Success | p50 | p95 | Max | Cycles behind lead block | Cycles as primary |
+|---|---|---|---|---|---|---|
+| Alchemy | 30/30 | 212ms | 284ms | 301ms | 2 | 0 |
+| Infura | 30/30 | 208ms | 278ms | 279ms | 2 | 0 |
+| Public node | 30/30 | 155ms | 223ms | 229ms | 1 | 30 |
 
-- The free public endpoint was the fastest in all three cycles, ahead of every keyed provider
-  configured at the time.
-- All providers agreed on block height and feed answer in every cycle.
-- Latency moved a lot between consecutive cycles (Infura went from 251ms to 159ms in about
-  ten seconds), which is why a single reading is a poor basis for routing.
+- **The free public endpoint was the fastest in every cycle.** Its median was about 25% lower
+  than either keyed provider, and its p95 (223ms) was close to their median.
+- **Nobody failed and nobody disagreed.** No errors, no timeouts, no answer mismatch, no stale
+  read, and the recommended primary never changed.
+- **Every provider fell one block behind at least once**, and never more than one. That is
+  normal propagation, which is why a production version needs a lag tolerance instead of
+  flagging any difference.
+- **Same pattern five months earlier.** The runs recorded on 30 June 2026
+  ([sample output](prototype/docs/sample-output.md)) also had the public node ahead.
 
-Three cycles are an observation, not a benchmark. `npm run benchmark` takes a proper sample
-(30 cycles by default) and writes p50/p95 latency, success rate, block lag, stale cycles and
-routing flap per provider to `prototype/docs/benchmark-results.md`.
+What this does and does not support: on a quiet testnet, from one vantage point, a keyed
+provider bought no latency advantage. It says nothing about rate limits, behavior under load,
+mainnet, or what happens during an incident, which are the reasons teams pay for a provider.
+The useful output is the method: measure side by side, then decide.
 
 ## Product thinking behind it
 

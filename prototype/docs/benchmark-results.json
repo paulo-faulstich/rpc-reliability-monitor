@@ -1,0 +1,62 @@
+{
+  "network": "Ethereum Sepolia",
+  "feed": "BTC/USD",
+  "feedAddress": "0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43",
+  "startedAt": "2026-11-24T06:38:32.651Z",
+  "endedAt": "2026-11-24T06:43:29.388Z",
+  "durationSeconds": 297,
+  "cycles": 30,
+  "intervalMs": 10000,
+  "timeoutMs": 5000,
+  "staleAfterSeconds": 86400,
+  "overall": {
+    "healthyPrimaryCycles": 30,
+    "healthyPrimaryShare": 1,
+    "answerMismatchCycles": 0,
+    "primaryChanges": 0
+  },
+  "providers": [
+    {
+      "provider": "alchemy",
+      "cycles": 30,
+      "successes": 30,
+      "successRate": 1,
+      "latencyP50Ms": 212,
+      "latencyP95Ms": 284,
+      "latencyMaxMs": 301,
+      "cyclesBehindLeadBlock": 2,
+      "maxBlockLag": 1,
+      "staleCycles": 0,
+      "cyclesAsPrimary": 0,
+      "errors": {}
+    },
+    {
+      "provider": "infura",
+      "cycles": 30,
+      "successes": 30,
+      "successRate": 1,
+      "latencyP50Ms": 208,
+      "latencyP95Ms": 278,
+      "latencyMaxMs": 279,
+      "cyclesBehindLeadBlock": 2,
+      "maxBlockLag": 1,
+      "staleCycles": 0,
+      "cyclesAsPrimary": 0,
+      "errors": {}
+    },
+    {
+      "provider": "public",
+      "cycles": 30,
+      "successes": 30,
+      "successRate": 1,
+      "latencyP50Ms": 155,
+      "latencyP95Ms": 223,
+      "latencyMaxMs": 229,
+      "cyclesBehindLeadBlock": 1,
+      "maxBlockLag": 1,
+      "staleCycles": 0,
+      "cyclesAsPrimary": 30,
+      "errors": {}
+    }
+  ]
+}
