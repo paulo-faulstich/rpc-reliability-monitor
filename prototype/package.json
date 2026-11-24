@@ -7,7 +7,8 @@
   "scripts": {
     "monitor": "node src/monitor.mjs",
     "dashboard": "node src/server.mjs",
-    "check": "node --check src/monitor.mjs && node --check src/rpc-monitor.mjs && node --check src/server.mjs"
+    "benchmark": "node src/benchmark.mjs",
+    "check": "node --check src/monitor.mjs && node --check src/rpc-monitor.mjs && node --check src/server.mjs && node --check src/benchmark.mjs"
   },
   "engines": {
     "node": ">=18"

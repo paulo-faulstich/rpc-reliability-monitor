@@ -101,22 +101,48 @@ The dashboard shows:
 
 This is the preferred walkthrough format for mixed technical and product audiences.
 
+## Measure providers over time
+
+```bash
+npm run benchmark
+```
+
+Runs 30 cycles, 10 seconds apart (about 5 minutes), and writes `docs/benchmark-results.md` and
+`docs/benchmark-results.json` with, per provider: success rate, p50/p95/max latency, cycles
+behind the lead block, stale cycles, and how often it was the recommended primary. Provider
+URLs are never written to the output.
+
+Tune the sample with `BENCH_SAMPLES` and `BENCH_INTERVAL_MS`:
+
+```bash
+BENCH_SAMPLES=60 BENCH_INTERVAL_MS=5000 npm run benchmark
+```
+
+Mind the request budget on free tiers: each cycle makes three calls per provider.
+
 ## Example output
 
-See [`docs/sample-output.md`](docs/sample-output.md) for a real local run.
+A real run from 30 June 2026 (Alchemy and a public node, Ethereum Sepolia). More in
+[`docs/sample-output.md`](docs/sample-output.md).
 
 ```text
 Chainlink RPC Reliability Monitor
 Network target: Ethereum Sepolia
 Feed: BTC/USD
+Feed contract: 0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43
 
-Provider   Status  Latency  Block     Answer      Updated                  Stale?
-alchemy    ok      184ms    6234123   104231.55   2026-06-30 13:12:24     no
-infura     ok      231ms    6234123   104231.55   2026-06-30 13:12:24     no
-quicknode  error   5000ms   -         -           -                       -
+Provider  Status  Latency  Chain     Block     Answer       Updated                   Age  Stale
+alchemy   ok      256ms    11155111  11173483  58329.89274  2026-06-30 15:01:48 UTC  12m  no
+public    ok      250ms    11155111  11173483  58329.89274  2026-06-30 15:01:48 UTC  12m  no
 
-Recommended primary: alchemy
-Fallback candidates: infura
+Summary
+- Providers checked: 2
+- Healthy providers: 2
+- Answer consistency: ok
+- Block consistency: ok
+- Stale threshold: 1d
+- Recommended primary: public
+- Fallback candidates: alchemy
 ```
 
 ## Product questions this prototype surfaces

@@ -13,7 +13,8 @@ diverge. *(Implemented: answer/block consistency checks.)*
 
 **Belief:** p95 latency rises before a provider starts returning errors.
 **Test:** sample per-provider latency continuously and alert on a sustained p95 breach before
-error rate climbs. *(Prototype measures per-call latency; continuous sampling is a next step.)*
+error rate climbs. *(`npm run benchmark` samples every provider over a window and reports p50/p95 latency;
+alerting on a sustained breach is a next step.)*
 
 ## H3 — Feed freshness catches risk that liveness checks miss
 
