@@ -10,7 +10,7 @@ once, compares what each returns, and recommends a primary provider with ranked 
 
 ![Live dashboard comparing Alchemy, Infura and a public node on the same Chainlink BTC/USD feed](prototype/docs/dashboard.png)
 
-[Watch the 35-second demo](https://github.com/user-attachments/assets/0fbba130-6965-4788-8958-bea28306e2d1)
+[Watch the 41-second walkthrough](https://github.com/user-attachments/assets/9e2a751c-d79b-4629-8321-3da93f34a30f)
 
 ## The problem
 

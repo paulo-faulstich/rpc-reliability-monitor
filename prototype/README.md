@@ -14,7 +14,7 @@ This is intentionally lightweight. It uses raw JSON-RPC calls instead of a Web3 
 
 ## Demo
 
-https://github.com/user-attachments/assets/0fbba130-6965-4788-8958-bea28306e2d1
+https://github.com/user-attachments/assets/9e2a751c-d79b-4629-8321-3da93f34a30f
 
 The live dashboard querying multiple RPC providers, comparing latency and freshness, and recommending a primary with fallbacks.
 
@@ -88,7 +88,7 @@ http://localhost:4173
 The dashboard shows:
 
 - live auto-refresh every 10 seconds;
-- Start Fetch and Stop Fetch controls to avoid burning through free-tier RPC requests;
+- Start monitoring and Stop controls to avoid burning through free-tier RPC requests;
 - recommended primary RPC provider;
 - healthy provider count;
 - answer consistency;

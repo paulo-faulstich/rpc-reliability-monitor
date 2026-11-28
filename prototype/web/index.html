@@ -7,114 +7,204 @@
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <main class="page">
-      <header class="topbar">
-        <p class="eyebrow">NodeOps prototype</p>
-        <h1>Live RPC provider monitor</h1>
-        <p class="topbar-sub">
-          Reads one Chainlink Data Feed through multiple RPC providers and compares
-          latency, consistency, freshness, and failover readiness.
-        </p>
-      </header>
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <defs>
+        <symbol id="i-overview" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2" /><rect x="13.5" y="3.5" width="7" height="7" rx="2" /><rect x="3.5" y="13.5" width="7" height="7" rx="2" /><rect x="13.5" y="13.5" width="7" height="7" rx="2" /></symbol>
+        <symbol id="i-providers" viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="6.5" rx="2.2" /><rect x="3.5" y="13.5" width="17" height="6.5" rx="2.2" /><path d="M7 7.25h.01M7 16.75h.01" /></symbol>
+        <symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h4l2.5-6.5 4.5 13L16.5 12H21" /></symbol>
+        <symbol id="i-about" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" /><path d="M12 11v5.5M12 7.5h.01" /></symbol>
+        <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5" /><circle cx="18" cy="18" r="2.5" /><path d="M8.5 6H15a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h6.5" /></symbol>
+        <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.4-7.5-10A4.4 4.4 0 0 1 12 7.2 4.4 4.4 0 0 1 19.5 10c0 5.6-7.5 10-7.5 10z" /></symbol>
+        <symbol id="i-equal" viewBox="0 0 24 24"><path d="M5 9.500h14M5 14.500h14" /></symbol>
+        <symbol id="i-blocks" viewBox="0 0 24 24"><path d="M12 3.5 19.5 7.500v9L12 20.5 4.5 16.500v-9z" /><path d="M4.5 7.5 12 11.500l7.5-4M12 11.500v9" /></symbol>
+        <symbol id="i-code" viewBox="0 0 24 24"><path d="m9 8-4 4 4 4M15 8l4 4-4 4" /></symbol>
+      </defs>
+    </svg>
 
-      <section class="framing" aria-label="Context">
-        <div class="frame">
-          <span class="label">Problem frame</span>
-          <strong>RPC degradation shows stale or inconsistent data</strong>
-          <p>When a provider lags or fails, products can read old or wrong data. So we treat each one as a dependency worth measuring.</p>
+    <div class="app">
+      <aside class="side">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"><svg><use href="#i-route" /></svg></span>
+          <span class="brand-name">RPC Monitor</span>
         </div>
-        <div class="frame">
-          <span class="label">Operational risk</span>
-          <strong>Outages and lag hit users before a full failure</strong>
-          <p>A slow or failing provider blocks reads, writes, and confirmations. Stale feeds quietly push decisions onto old data.</p>
-        </div>
-        <div class="frame">
-          <span class="label">Reliability signals</span>
-          <strong>Compare, score, and recommend a primary</strong>
-          <p>It checks latency, block height, answer consistency, and freshness, then picks a primary and ranks the fallbacks.</p>
-        </div>
-      </section>
 
-      <section class="status-grid" aria-label="Summary">
-        <article class="metric-card primary-metric">
-          <span class="label">Recommended primary</span>
-          <strong id="primary">Not started</strong>
-        </article>
-        <article class="metric-card">
-          <span class="label">Healthy providers</span>
-          <strong id="healthy">-</strong>
-        </article>
-        <article class="metric-card">
-          <span class="label">Answer consistency</span>
-          <strong id="answerConsistency">-</strong>
-        </article>
-        <article class="metric-card">
-          <span class="label">Block consistency</span>
-          <strong id="blockConsistency">-</strong>
-        </article>
-      </section>
+        <nav class="nav" aria-label="Sections">
+          <a href="#overview" data-view="overview"><svg><use href="#i-overview" /></svg>Overview</a>
+          <a href="#providers" data-view="providers"><svg><use href="#i-providers" /></svg>Providers</a>
+          <a href="#activity" data-view="activity"><svg><use href="#i-activity" /></svg>Activity</a>
+          <a href="#about" data-view="about"><svg><use href="#i-about" /></svg>Why it matters</a>
+        </nav>
 
-      <section class="dashboard-grid">
-        <div class="panel live-panel">
-          <div class="panel-header">
-            <div>
-              <p class="eyebrow live-eyebrow"><span class="live-dot"></span> Live check</p>
-              <h2 id="feedTitle">Chainlink Data Feed</h2>
-              <p id="feedDetails" class="muted">Click Start Fetch to query configured RPC providers.</p>
+        <div class="side-foot">
+          <a href="https://github.com/paulo-faulstich/rpc-reliability-monitor" target="_blank" rel="noopener"><svg><use href="#i-code" /></svg>Source on GitHub</a>
+          <p>Built by <a href="https://github.com/paulo-faulstich" target="_blank" rel="noopener">Paulo Faulstich</a>, 2026. MIT License.</p>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="head">
+          <div class="head-title">
+            <h1 id="feedTitle">Chainlink Data Feed</h1>
+            <p id="feedDetails">One price feed, read through every configured RPC provider.</p>
+          </div>
+          <div class="controls">
+            <div class="refresh-meta" id="refreshMeta">
+              <span class="live-dot" aria-hidden="true"></span>
+              <span id="nextRefresh">Monitoring paused</span>
+              <div class="progress"><span id="progressBar"></span></div>
             </div>
-            <div class="actions">
-              <button id="startFetch" type="button">Start Fetch</button>
-              <button id="stopFetch" class="secondary" type="button" disabled>Stop Fetch</button>
-              <div class="refresh-meta">
-                <span id="nextRefresh">Auto-refresh paused</span>
-                <div class="progress"><span id="progressBar"></span></div>
+            <button id="startFetch" type="button">Start monitoring</button>
+            <button id="stopFetch" class="secondary" type="button" disabled>Stop</button>
+          </div>
+        </header>
+
+        <div id="error" class="notice error" role="alert" hidden></div>
+
+        <!-- Overview -->
+        <section class="view" id="view-overview" aria-label="Overview">
+          <div class="tiles">
+            <article class="tile">
+              <div class="tile-text">
+                <span class="tile-label">Recommended primary</span>
+                <strong id="primary" class="tile-value">Not started</strong>
+                <span id="primaryNote" class="tile-note">Fastest healthy provider</span>
+              </div>
+              <span class="chip chip-blue" aria-hidden="true"><svg><use href="#i-route" /></svg></span>
+            </article>
+            <article class="tile">
+              <div class="tile-text">
+                <span class="tile-label">Healthy providers</span>
+                <strong id="healthy" class="tile-value">–</strong>
+                <span id="healthyNote" class="tile-note">Responding with fresh data</span>
+              </div>
+              <span class="chip chip-rose" aria-hidden="true"><svg><use href="#i-pulse" /></svg></span>
+            </article>
+            <article class="tile">
+              <div class="tile-text">
+                <span class="tile-label">Feed answers</span>
+                <strong id="answerConsistency" class="tile-value">–</strong>
+                <span id="answerNote" class="tile-note">Same price everywhere</span>
+              </div>
+              <span class="chip chip-violet" aria-hidden="true"><svg><use href="#i-equal" /></svg></span>
+            </article>
+            <article class="tile">
+              <div class="tile-text">
+                <span class="tile-label">Block height</span>
+                <strong id="blockConsistency" class="tile-value">–</strong>
+                <span id="blockNote" class="tile-note">Same latest block everywhere</span>
+              </div>
+              <span class="chip chip-teal" aria-hidden="true"><svg><use href="#i-blocks" /></svg></span>
+            </article>
+          </div>
+
+          <div class="row row-chart">
+            <article class="card">
+              <div class="card-head">
+                <div>
+                  <h2>Response time</h2>
+                  <p class="card-sub" id="chartSub">Per provider, one point per check</p>
+                </div>
+                <div class="legend" id="chartLegend"></div>
+              </div>
+              <div class="chart" id="chart"></div>
+            </article>
+
+            <article class="card">
+              <div class="card-head">
+                <h2>Providers</h2>
+                <a class="card-link" href="#providers">Details</a>
+              </div>
+              <div class="provider-list" id="providerList"></div>
+            </article>
+          </div>
+
+          <div class="row row-chart">
+            <article class="card">
+              <div class="card-head">
+                <h2>Recent checks</h2>
+                <a class="card-link" href="#activity">View all</a>
+              </div>
+              <div class="checks" id="recentChecks"></div>
+            </article>
+
+            <article class="card">
+              <div class="card-head"><h2>Feed freshness</h2></div>
+              <dl class="facts" id="feedFacts"></dl>
+            </article>
+          </div>
+        </section>
+
+        <!-- Providers -->
+        <section class="view" id="view-providers" aria-label="Providers" hidden>
+          <article class="card">
+            <div class="card-head">
+              <div>
+                <h2>Provider comparison</h2>
+                <p class="card-sub">Latest check, with the median and success rate for this session</p>
               </div>
             </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Provider</th>
+                    <th>Status</th>
+                    <th class="num">Latency</th>
+                    <th class="num">Median</th>
+                    <th class="num">Success</th>
+                    <th class="num">Block</th>
+                    <th class="num">Answer</th>
+                    <th class="num">Feed age</th>
+                  </tr>
+                </thead>
+                <tbody id="results"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <!-- Activity -->
+        <section class="view" id="view-activity" aria-label="Activity" hidden>
+          <article class="card">
+            <div class="card-head">
+              <div>
+                <h2>Activity log</h2>
+                <p class="card-sub">The last 30 checks in this session, newest first</p>
+              </div>
+            </div>
+            <div class="checks checks-full" id="history"></div>
+          </article>
+        </section>
+
+        <!-- About -->
+        <section class="view" id="view-about" aria-label="Why it matters" hidden>
+          <div class="about">
+            <article class="card">
+              <span class="chip chip-rose" aria-hidden="true"><svg><use href="#i-pulse" /></svg></span>
+              <h2>A degraded provider serves stale or inconsistent data</h2>
+              <p>When a provider lags or fails, products read old or wrong data. Each provider is a dependency worth measuring.</p>
+            </article>
+            <article class="card">
+              <span class="chip chip-violet" aria-hidden="true"><svg><use href="#i-activity" /></svg></span>
+              <h2>Lag reaches users before a full outage does</h2>
+              <p>A slow provider blocks reads, writes and confirmations. A stale feed quietly pushes decisions onto old prices.</p>
+            </article>
+            <article class="card">
+              <span class="chip chip-blue" aria-hidden="true"><svg><use href="#i-route" /></svg></span>
+              <h2>Compare, score, then recommend a primary</h2>
+              <p>The monitor checks latency, block height, answer consistency and freshness, picks a primary and ranks the fallbacks.</p>
+            </article>
           </div>
-
-          <div id="emptyState" class="notice">
-            Fetching is stopped. Start the monitor to run live RPC checks every 10 seconds.
-          </div>
-          <div id="loading" class="notice" hidden>Checking providers...</div>
-          <div id="error" class="notice error" hidden></div>
-
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Provider</th>
-                  <th>Status</th>
-                  <th>Latency</th>
-                  <th>Block</th>
-                  <th>Answer</th>
-                  <th>Feed age</th>
-                  <th>Stale?</th>
-                </tr>
-              </thead>
-              <tbody id="results"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <aside class="panel history-panel">
-          <p class="eyebrow">Recent checks</p>
-          <h2>Live activity log</h2>
-          <div id="history" class="history"></div>
-        </aside>
-      </section>
-
-      <footer class="site-footer">
-        <span>RPC Reliability Monitor</span>
-        <span class="dot">·</span>
-        <span>Built by <a href="https://github.com/paulo-faulstich" target="_blank" rel="noopener">Paulo Faulstich</a></span>
-        <span class="dot">·</span>
-        <span>2026</span>
-        <span class="dot">·</span>
-        <a href="https://github.com/paulo-faulstich/rpc-reliability-monitor" target="_blank" rel="noopener">Source</a>
-        <span class="dot">·</span>
-        <span>MIT License</span>
-      </footer>
-    </main>
+          <article class="card about-links">
+            <p>The product thinking behind this prototype (problem frame, PRD, metrics, roadmap and tech spec) is in the repository.</p>
+            <div>
+              <a class="btn-link" href="https://github.com/paulo-faulstich/rpc-reliability-monitor/tree/main/pm-operating-model" target="_blank" rel="noopener">Read the case study</a>
+              <a class="btn-link ghost" href="https://github.com/paulo-faulstich/rpc-reliability-monitor" target="_blank" rel="noopener">View the code</a>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
 
     <script src="/app.js" type="module"></script>
   </body>
